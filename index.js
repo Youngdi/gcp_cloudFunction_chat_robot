@@ -7,21 +7,20 @@ const { JSDOM } = jsdom
 const fetch = require('node-fetch')
 const line = require('@line/bot-sdk')
 
-const config = {
-  channelId: process.env.CHANNELID,
-  channelAccessToken: process.env.CHANNELACCESSTOKEN,
-  channelSecret: process.env.CHANNELSECERT
-}
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+// const config = {
+//   channelId: process.env.CHANNELID,
+//   channelAccessToken: process.env.CHANNELACCESSTOKEN,
+//   channelSecret: process.env.CHANNELSECERT
+// }
+// const client = new line.Client(config)
+// const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 
 const firestore = new Firestore({
   projectId: PROJECTID,
   timestampsInSnapshots: true,
 });
 
-exports.getMXSchoolCarousel = (req, res) => {
-
-  const client = new line.Client(config)
+exports.main = (req, res) => {
 
   const send = async () => {
     const schoolCarousel = await fetch(
@@ -43,9 +42,10 @@ exports.getMXSchoolCarousel = (req, res) => {
         )
         return data
       })
-    schoolCarousel.forEach(i => {
-      createData(i.link, i.imageSrc)
-    })
+      console.log(schoolCarousel)
+    // schoolCarousel.forEach(i => {
+    //   createData(i.link, i.imageSrc)
+    // })
     // const msg = LINE_CAROUSEL_TEMPLETE(schoolCarousel)
 
     // client.multicast(
@@ -157,5 +157,6 @@ exports.getMXSchoolCarousel = (req, res) => {
       console.error(err);
     });
   }
+
   send()
 }

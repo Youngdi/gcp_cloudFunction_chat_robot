@@ -27,7 +27,7 @@ exports.main = (req, res) => {
     const schoolCarousel = await getSchoolCarousel()
     const prevData = await getData()
     
-    if (checkAllIsNotSame(prevData, schoolCarousel)) {
+    if (checkAllIsNotSame(prevData, schoolCarousel) || prevData.length !== schoolCarousel.length) {
       if (prevData.length !== 0) {
         await removeAllDoc()
       }
@@ -149,7 +149,7 @@ exports.main = (req, res) => {
     for (let i = 0; i < next.length; i++) {
       if (
         !prev.some(
-          j => j.link == next[i].link && j.imageSrc == next[i].imageSrc
+          j => j.link == next[i].link
         )
       ) {
         isAllNotSame = true
